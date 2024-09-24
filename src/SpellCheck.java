@@ -1,3 +1,5 @@
+import java.util.Arrays;
+
 /**
  * Spell Check
  * A puzzle written by Zach Blick
@@ -18,7 +20,10 @@ public class SpellCheck {
      * @return String[] of all mispelled words in the order they appear in text. No duplicates.
      */
     public String[] checkWords(String[] text, String[] dictionary) {
-
+        Storage map = new Storage();
+        for (String s : dictionary) {
+            map.setChild(s);
+        }
         return null;
     }
 }
