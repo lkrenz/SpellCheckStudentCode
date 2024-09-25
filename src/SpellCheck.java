@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.Arrays;
 
 /**
@@ -20,10 +21,19 @@ public class SpellCheck {
      * @return String[] of all mispelled words in the order they appear in text. No duplicates.
      */
     public String[] checkWords(String[] text, String[] dictionary) {
+        ArrayList<String> misspelled = new ArrayList<>();
         Storage map = new Storage();
         for (String s : dictionary) {
             map.setChild(s);
         }
-        return null;
+
+        for (String s : text) {
+            if (!map.checkWord(s) && !misspelled.contains(s)) {
+                misspelled.add(s);
+            }
+        }
+
+        String[] data = misspelled.toArray(new String[0]);
+        return data;
     }
 }

@@ -4,21 +4,26 @@ public class Storage {
 
     public Storage(boolean isWord) {
         this.isWord = isWord;
-        this.children = new Storage[26];
+        this.children = new Storage[27];
     }
 
     public Storage() {
         this.isWord = false;
-        this.children = new Storage[26];
+        this.children = new Storage[27];
     }
 
     public void setChild(String value) {
-        System.out.println(value);
         if (value.isEmpty()) {
             isWord = true;
             return;
         }
-        int val = (int) value.charAt(0) - 65;
+        int val = (int) value.charAt(0) - 97;
+        if (val < 0) {
+            val = 26;
+        }
+        if (val > 26) {
+            return;
+        }
         if (children[val] == null) {
             children[val] = new Storage();
         }
@@ -33,7 +38,10 @@ public class Storage {
     }
 
     public boolean checkWord(String value) {
-        if (value.isEmpty()) {
+        if (this.isWord && value.isEmpty()) {
+            return true;
+        }
+        else if (value.isEmpty()) {
             return false;
         }
         String word;
@@ -43,6 +51,17 @@ public class Storage {
         else {
             word = value.substring(1);
         }
-        return children[(int) value.charAt(0)].checkWord(word);
+
+        int val = (int) value.charAt(0) - 97;
+        if (val < 0) {
+            val = 26;
+        }
+        if (val > 26) {
+            return false;
+        }
+        if (children[val] == null) {
+            return false;
+        }
+        return children[val].checkWord(word);
     }
 }
