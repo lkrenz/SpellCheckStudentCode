@@ -12,6 +12,7 @@ public class Storage {
         this.children = new Storage[27];
     }
 
+    // These methods work, but there is probably a way I can remove redundant steps
     public void setChild(String value) {
         if (value.isEmpty()) {
             isWord = true;
@@ -20,9 +21,6 @@ public class Storage {
         int val = (int) value.charAt(0) - 97;
         if (val < 0) {
             val = 26;
-        }
-        if (val > 26) {
-            return;
         }
         if (children[val] == null) {
             children[val] = new Storage();
