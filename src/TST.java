@@ -6,11 +6,33 @@ public class TST {
     }
 
     public void addWord(String word) {
-        Node node = root;
+        Node node = this.root;
         int i = 0;
-        while (true) {
-            node = node.findChild(word.charAt(i));
-            if (node.)
+        while (i < word.length()) {
+            char letter = word.charAt(i);
+            Node child = node.findChild(letter);
+
+            if (child == null) {
+                child = new Node(letter);
+                node = child;
+                i++;
+            }
+            else {
+                node = child;
+            }
         }
     }
+
+    public boolean checkWord(String word) {
+        Node node = this.root;
+        int i = 0;
+
+        while (node != null) {
+            char letter = word.charAt(i);
+            Node child = node.findChild(letter);
+            if (child)
+
+        }
+    }
+
 }

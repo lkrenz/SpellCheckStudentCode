@@ -1,6 +1,26 @@
 public class Node {
 
-    private Node left, middle, right;
+    private Node left;
+
+    public Node getLeft() {
+        return left;
+    }
+
+    public Node getMiddle() {
+        return middle;
+    }
+
+    public Node getRight() {
+        return right;
+    }
+
+    private Node middle;
+    private Node right;
+
+    public char getLetter() {
+        return letter;
+    }
+
     private char letter;
 
     public boolean isWord() {
