@@ -2,7 +2,8 @@ public class TST {
     Node root;
 
     public TST() {
-        this.root = new Node();
+        this.root = new Node('a');
+
     }
 
     public void addWord(String word) {
@@ -29,13 +30,19 @@ public class TST {
         int i = 0;
         while (i < word.length()) {
             char letter = word.charAt(i);
-            Node child = node.findChild(letter);
-
-            if (child == null) {
-                return false;
+            if (node.getLetter() == letter) {
+                System.out.println(node.getLetter());
+                node = node.getMiddle();
+                i++;
+            }
+            else if (node.getLetter() > letter) {
+                node = node.getRight();
             }
             else {
-                node = child;
+                node = node.getLeft();
+            }
+            if (node == null) {
+                return false;
             }
         }
         if (node.isWord()) {
