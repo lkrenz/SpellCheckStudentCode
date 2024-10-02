@@ -1,5 +1,6 @@
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.LinkedHashSet;
 
 /**
  * Spell Check
@@ -45,5 +46,20 @@ public class SpellCheck {
 
         // Returns the misspelled words
         return misspelled.toArray(new String[0]);
+
+        // Adds every word in the dictionary to the hash table
+        LinkedHashSet<String> words = new LinkedHashSet<>(Arrays.asList(dictionary));
+        ArrayList<String> misspelled = new ArrayList<>();
+
+        // Iterates through every word in the text and checks if it is in the has table
+        for (String word : text) {
+            if (!words.contains(word) && !misspelled.contains(word))
+                misspelled.add(word);
+        }
+        return misspelled.toArray(new String[0]);
+
     }
+
+
+
 }
