@@ -21,18 +21,27 @@ public class TST {
                 node = child;
             }
         }
+        node.setWord(true);
     }
 
     public boolean checkWord(String word) {
         Node node = this.root;
         int i = 0;
-
-        while (node != null) {
+        while (i < word.length()) {
             char letter = word.charAt(i);
             Node child = node.findChild(letter);
-            if (child)
 
+            if (child == null) {
+                return false;
+            }
+            else {
+                node = child;
+            }
         }
+        if (node.isWord()) {
+            return true;
+        }
+        return false;
     }
 
 }

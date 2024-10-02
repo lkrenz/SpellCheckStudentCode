@@ -22,42 +22,45 @@ public class SpellCheck {
      * @return String[] of all mispelled words in the order they appear in text. No duplicates.
      */
     public String[] checkWords(String[] text, String[] dictionary) {
-        ArrayList<String> misspelled = new ArrayList<>();
-        Storage map = new Storage();
+//        return checkWordTrie(text, dictionary);
+        return checkWordTST(text, dictionary);
+    }
 
-        // Adds all words to the storage tree
-        // While I could be loosing some efficiency here, the same dictionary is loaded in for all cases and this step
-        // doesn't seem to be taking too much time.
+    public String[] checkWordTST(String[] text, String[] dictionary) {
+        ArrayList<String> misspelledArray = new ArrayList<>();
+        TST dict = new TST();
+        TST misspelled = new TST();
+
         for (String s : dictionary) {
-            map.setChild(s);
+            dict.addWord(s);
         }
 
-        // Iterates through words and checks if they are in the storage tree
-        // This is the main section that I can improve on. While the code runs in the same categorical runtime
-        // as the solution, there are probably some ways I can speed up this section.
         for (String s : text) {
+            if (!dict.checkWord(s) && !misspelled.checkWord(s)) {
+                misspelled.addWord(s);
+                misspelledArray.add(s);
+            }
+        }
+        return misspelledArray.toArray(new String[0]);
+    }
 
-            // Ensures word has not already been labeled as misspelled
-            // I might be able to increase the efficiency of the .contains() method through coding my own implementation
-            if (!map.checkWord(s) && !misspelled.contains(s)) {
-                misspelled.add(s);
+    public String[] checkWordTrie(String[] text, String[] dictionary) {
+        ArrayList<String> misspelledArray = new ArrayList<>();
+        Trie dict = new Trie();
+        Trie misspelled = new Trie();
+
+        for (String s : dictionary) {
+            dict.addWord(s);
+        }
+
+        for (String s : text) {
+            if (!dict.isWord(s) && !misspelled.isWord(s)) {
+                misspelled.addWord(s);
+                misspelledArray.add(s);
             }
         }
 
-        // Returns the misspelled words
-        return misspelled.toArray(new String[0]);
-
-        // Adds every word in the dictionary to the hash table
-        LinkedHashSet<String> words = new LinkedHashSet<>(Arrays.asList(dictionary));
-        ArrayList<String> misspelled = new ArrayList<>();
-
-        // Iterates through every word in the text and checks if it is in the has table
-        for (String word : text) {
-            if (!words.contains(word) && !misspelled.contains(word))
-                misspelled.add(word);
-        }
-        return misspelled.toArray(new String[0]);
-
+        return misspelledArray.toArray(new String[0]);
     }
 
 
