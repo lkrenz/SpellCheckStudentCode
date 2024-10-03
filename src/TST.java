@@ -10,13 +10,22 @@ public class TST {
         Node node = this.root;
         int i = 0;
         while (i < word.length()) {
+
             char letter = word.charAt(i);
+
+            if (node.getLetter() == letter) {
+                System.out.println(letter + "  " + node.getLetter());
+                i++;
+            }
+
             Node child = node.findChild(letter);
 
             if (child == null) {
-                child = new Node(letter);
-                node = child;
-                i++;
+                while (i < word.length()) {
+                    node.setMiddle(new Node(word.charAt(i)));
+                    node = node.getMiddle();
+                    i++;
+                }
             }
             else {
                 node = child;
