@@ -14,20 +14,25 @@ public class Node {
         return right;
     }
 
-    public void setMiddle(Node middle) {
+    public Node setMiddle(Node middle) {
         this.middle = middle;
+        return this.middle;
     }
 
-    public void setChild(char letter) {
+    public Node setChild(char letter) {
         if (letter == this.letter) {
             this.middle = new Node(letter);
+            return this.middle;
         }
         else if(letter < this.letter) {
             this.left = new Node(letter);
+            return this.left;
         }
         else {
             this.right = new Node(letter);
+            return this.right;
         }
+
     }
 
     private Node middle;
@@ -51,6 +56,9 @@ public class Node {
 
     public Node(char letter) {
         this.letter = letter;
+        this.middle = null;
+        this.right = null;
+        this.left = null;
     }
 
     public Node(char letter, boolean word) {

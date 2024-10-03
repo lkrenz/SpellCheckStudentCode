@@ -10,20 +10,24 @@ public class TST {
         Node node = this.root;
         int i = 0;
         while (i < word.length()) {
-
             char letter = word.charAt(i);
-
+            Node child = null;
             if (node.getLetter() == letter) {
-                System.out.println(letter + "  " + node.getLetter());
                 i++;
+                letter = word.charAt(i);
+                child = node.getMiddle();
+            }
+            else {
+                child = node.findChild(letter);
             }
 
-            Node child = node.findChild(letter);
 
             if (child == null) {
+                child = new Node(letter);
+                node = child;
+
                 while (i < word.length()) {
-                    node.setMiddle(new Node(word.charAt(i)));
-                    node = node.getMiddle();
+                    node = node.setMiddle(new Node(word.charAt(i)));
                     i++;
                 }
             }
