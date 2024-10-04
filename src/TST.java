@@ -11,28 +11,17 @@ public class TST {
         int i = 0;
         while (i < word.length()) {
             char letter = word.charAt(i);
-            Node child = null;
+
             if (node.getLetter() == letter) {
                 i++;
-                letter = word.charAt(i);
-                child = node.getMiddle();
-            }
-            else {
-                child = node.findChild(letter);
-            }
-
-
-            if (child == null) {
-                child = new Node(letter);
-                node = child;
-
-                while (i < word.length()) {
-                    node = node.setMiddle(new Node(word.charAt(i)));
-                    i++;
+                if (i == word.length() - 1) {
+                    node.setMiddle(new Node(word.charAt(i)));
+                    break;
                 }
+                node = node.getMiddle(word.charAt(i));
             }
             else {
-                node = child;
+                node = node.findChild(letter);
             }
         }
         node.setWord(true);

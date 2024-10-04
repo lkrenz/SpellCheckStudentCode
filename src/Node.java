@@ -10,6 +10,14 @@ public class Node {
         return middle;
     }
 
+    public Node getMiddle(char letter) {
+        if (this.middle == null) {
+            this.middle = new Node(letter);
+        }
+        return middle;
+    }
+
+
     public Node getRight() {
         return right;
     }
@@ -70,12 +78,21 @@ public class Node {
 
     public Node findChild(char letter) {
         if (letter == this.letter) {
+            if (this.middle == null) {
+                this.middle = new Node(letter);
+            }
             return this.middle;
         }
         else if(letter < this.letter) {
+            if (this.left == null) {
+                this.left = new Node(letter);
+            }
             return this.left;
         }
         else {
+            if (this.right == null) {
+                this.right = new Node(letter);
+            }
             return this.right;
         }
     }
