@@ -41,6 +41,7 @@ public class SpellCheck {
                 misspelledArray.add(s);
             }
         }
+        System.out.println(misspelledArray);
         return misspelledArray.toArray(new String[0]);
     }
 

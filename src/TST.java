@@ -2,7 +2,7 @@ public class TST {
     Node root;
 
     public TST() {
-        this.root = new Node('a');
+        this.root = new Node('m');
 
     }
 
@@ -14,8 +14,12 @@ public class TST {
 
             if (node.getLetter() == letter) {
                 i++;
-                if (i == word.length() - 1) {
-                    node.setMiddle(new Node(word.charAt(i)));
+                if (i == word.length() - 1) { // This is the problem, we don't want to auto write over the rest of the word.
+                    node.setMiddle(word.charAt(i), true);
+                    break;
+                }
+                else if (i == word.length()) {
+                    node.setWord(true);
                     break;
                 }
                 node = node.getMiddle(word.charAt(i));
@@ -24,7 +28,6 @@ public class TST {
                 node = node.findChild(letter);
             }
         }
-        node.setWord(true);
     }
 
     public boolean checkWord(String word) {
@@ -32,23 +35,26 @@ public class TST {
         int i = 0;
         while (i < word.length()) {
             char letter = word.charAt(i);
-            if (node.getLetter() == letter) {
-                System.out.println(node.getLetter());
-                node = node.getMiddle();
+            char nodeLetter = node.getLetter();
+            if (nodeLetter == letter) {
                 i++;
+                if (i == word.length() - 1) {
+                    return node.middleIsWord();
+                }
+                else if(i == word.length()) {
+                    return node.isWord();
+                }
+                node = node.getMiddle();
             }
-            else if (node.getLetter() > letter) {
-                node = node.getRight();
+            else if (nodeLetter > letter) {
+                node = node.getLeft();
             }
             else {
-                node = node.getLeft();
+                node = node.getRight();
             }
             if (node == null) {
                 return false;
             }
-        }
-        if (node.isWord()) {
-            return true;
         }
         return false;
     }
