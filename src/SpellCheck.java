@@ -1,6 +1,4 @@
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.LinkedHashSet;
 
 /**
  * Spell Check
@@ -8,7 +6,7 @@ import java.util.LinkedHashSet;
  * for Adventures in Algorithms
  * At Menlo School in Atherton, CA
  *
- * Completed by: [YOUR NAME HERE]
+ * Completed by: Liam Krenz
  * */
 
 public class SpellCheck {
@@ -26,36 +24,41 @@ public class SpellCheck {
         return checkWordTST(text, dictionary);
     }
 
+    // Uses a TST to find misspelled words
     public String[] checkWordTST(String[] text, String[] dictionary) {
         ArrayList<String> misspelledArray = new ArrayList<>();
-        TST dict = new TST();
-        TST misspelled = new TST();
+        TST dict = new TST(dictionary[0].charAt(0));
+        TST misspelled = new TST('m');
 
+        // Adds words to the dictionary
         for (String s : dictionary) {
             dict.addWord(s);
         }
 
+        // If words aren't present in the dictionary or misspelled word TST, they are added to misspelled
         for (String s : text) {
-            if (!dict.checkWord(s) && !misspelled.checkWord(s)) {
+            if (dict.checkWord(s) && misspelled.checkWord(s)) {
                 misspelled.addWord(s);
                 misspelledArray.add(s);
             }
         }
-        System.out.println(misspelledArray);
         return misspelledArray.toArray(new String[0]);
     }
 
+    // Uses a Trie to find misspelled words
     public String[] checkWordTrie(String[] text, String[] dictionary) {
         ArrayList<String> misspelledArray = new ArrayList<>();
         Trie dict = new Trie();
         Trie misspelled = new Trie();
 
+        // Creates the dictionary
         for (String s : dictionary) {
             dict.addWord(s);
         }
 
+        // If words aren't present in the dictionary or misspelled word Trie, they are added to misspelled
         for (String s : text) {
-            if (!dict.isWord(s) && !misspelled.isWord(s)) {
+            if (dict.checkWord(s) && misspelled.checkWord(s)) {
                 misspelled.addWord(s);
                 misspelledArray.add(s);
             }

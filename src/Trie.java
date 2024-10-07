@@ -1,10 +1,11 @@
 public class Trie {
-    private TrieNode root;
+    private final TrieNode root;
 
     public Trie() {
         this.root = new TrieNode();
     }
 
+    // Adds words to the trie
     public void addWord(String word) {
         TrieNode node = this.root;
         for (int i = 0; i < word.length(); i++) {
@@ -13,18 +14,18 @@ public class Trie {
         node.setWord();
     }
 
-    public boolean isWord(String word) {
+    // Checks if a given word is in the trie
+    public boolean checkWord(String word) {
         TrieNode node = this.root;
+
+        // Iterates until reaching the end of the word or a leaf
         for (int i = 0; i < word.length(); i++) {
             node = node.checkChild(word.charAt(i));
             if (node == null) {
-                return false;
+                return true;
             }
         }
-        if (node.isWord()) {
-            return true;
-        }
-        return false;
+        return !node.isWord();
     }
 
 

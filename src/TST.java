@@ -1,62 +1,67 @@
 public class TST {
     Node root;
 
-    public TST() {
-        this.root = new Node('m');
-
+    public TST(char letter) {
+        this.root = new Node(letter);
     }
 
+    // Adds words to the TST
     public void addWord(String word) {
         Node node = this.root;
         int i = 0;
+
+        // Iterates through the TST, adding nodes if necessary to add words
         while (i < word.length()) {
+
+            // I represents the current letter in the word
             char letter = word.charAt(i);
 
-            if (node.getLetter() == letter) {
+            // Handles cases of accepting the current node or moving to the left or right
+            if (letter < node.getLetter()) {
+                node = node.findChild(letter);
+            }
+            else if (letter > node.getLetter()) {
+                node = node.findChild(letter);
+            }
+            else {
+                // If we accept the node, we move on to the next letter
                 i++;
-                if (i == word.length() - 1) { // This is the problem, we don't want to auto write over the rest of the word.
-                    node.setMiddle(word.charAt(i), true);
-                    break;
-                }
-                else if (i == word.length()) {
+                if (i == word.length()) {
                     node.setWord(true);
                     break;
                 }
+                // getMiddle can create a new node if necessary
                 node = node.getMiddle(word.charAt(i));
-            }
-            else {
-                node = node.findChild(letter);
             }
         }
     }
+
 
     public boolean checkWord(String word) {
         Node node = this.root;
         int i = 0;
-        while (i < word.length()) {
+
+        // Iterates until reaching a leaf or a null node
+        while (node != null && i < word.length()) {
             char letter = word.charAt(i);
             char nodeLetter = node.getLetter();
-            if (nodeLetter == letter) {
-                i++;
-                if (i == word.length() - 1) {
-                    return node.middleIsWord();
-                }
-                else if(i == word.length()) {
-                    return node.isWord();
-                }
-                node = node.getMiddle();
-            }
-            else if (nodeLetter > letter) {
+
+            // Handles left right and middle cases on the TST
+            if (letter < nodeLetter) {
                 node = node.getLeft();
             }
-            else {
+            else if (letter > nodeLetter) {
                 node = node.getRight();
             }
-            if (node == null) {
-                return false;
+            else {
+                // If we accept the node, we move onto the next character
+                if (i == word.length() - 1) {
+                    return !node.isWord();
+                }
+                i++;
+                node = node.getMiddle();
             }
         }
-        return false;
+        return true;
     }
-
 }

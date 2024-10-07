@@ -1,16 +1,17 @@
 public class TrieNode {
-    private TrieNode[] children;
+    private final TrieNode[] children;
+    private boolean isWord;
+
+    // Creates a new TrieNode
+    public TrieNode() {
+        this.children = new TrieNode[255];
+    }
 
     public boolean isWord() {
         return isWord;
     }
 
-    private boolean isWord;
-
-    public TrieNode() {
-        this.children = new TrieNode[255];
-    }
-
+    // Returns the child at the given index, initializing if necessary
     public TrieNode getChild(char index) {
         if (children[index] != null) {
             return children[index];
@@ -19,6 +20,7 @@ public class TrieNode {
         return children[index];
     }
 
+    // Returns child if it exists
     public TrieNode checkChild(char index) {
         if (children[index] != null) {
             return children[index];

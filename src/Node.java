@@ -1,6 +1,27 @@
 public class Node {
 
     private Node left;
+    private Node middle;
+    private Node right;
+    private final char letter;
+    private boolean word;
+
+    // Creates a new node given only the letter
+    public Node(char letter) {
+        this.letter = letter;
+        this.middle = null;
+        this.right = null;
+        this.left = null;
+    }
+
+    // Creates a new node given a letter and the boolean isWord
+    public Node(char letter, boolean isWord) {
+        this.letter = letter;
+        this.middle = null;
+        this.right = null;
+        this.left = null;
+        this.word = isWord;
+    }
 
     public Node getLeft() {
         return left;
@@ -10,58 +31,13 @@ public class Node {
         return middle;
     }
 
-    public Node getMiddle(char letter) {
-        if (this.middle == null) {
-            this.middle = new Node(letter);
-        }
-        return middle;
-    }
-
-    public boolean middleIsWord() {
-        if (middle != null) {
-            return middle.isWord();
-        }
-        return false;
-    }
-
-
     public Node getRight() {
         return right;
     }
 
-    public void setMiddle(char letter, boolean isWord) {
-        if (this.middle != null) {
-            middle.setWord(true);
-        }
-        else {
-            middle = new Node(letter, isWord);
-        }
-    }
-
-    public Node setChild(char letter) {
-        if (letter == this.letter) {
-            this.middle = new Node(letter);
-            return this.middle;
-        }
-        else if(letter < this.letter) {
-            this.left = new Node(letter);
-            return this.left;
-        }
-        else {
-            this.right = new Node(letter);
-            return this.right;
-        }
-
-    }
-
-    private Node middle;
-    private Node right;
-
     public char getLetter() {
         return letter;
     }
-
-    private char letter;
 
     public boolean isWord() {
         return word;
@@ -71,39 +47,19 @@ public class Node {
         this.word = word;
     }
 
-    private boolean word;
-
-    public Node(char letter) {
-        this.letter = letter;
-        this.middle = null;
-        this.right = null;
-        this.left = null;
-    }
-
-    public Node(char letter, boolean isWord) {
-        this.letter = letter;
-        this.middle = null;
-        this.right = null;
-        this.left = null;
-        this.word = isWord;
-    }
-
-    public Node() {}
-
+    // Returns the correct child, initializing the node if necessary
     public Node findChild(char letter) {
         if (letter == this.letter) {
             if (this.middle == null) {
                 this.middle = new Node(letter);
             }
             return this.middle;
-        }
-        else if(letter < this.letter) {
+        } else if (letter < this.letter) {
             if (this.left == null) {
                 this.left = new Node(letter);
             }
             return this.left;
-        }
-        else {
+        } else {
             if (this.right == null) {
                 this.right = new Node(letter);
             }
@@ -111,6 +67,11 @@ public class Node {
         }
     }
 
-
-
+    // Returns the middle node, initializing it if necessary
+    public Node getMiddle(char letter) {
+        if (this.middle == null) {
+            this.middle = new Node(letter);
+        }
+        return middle;
+    }
 }
